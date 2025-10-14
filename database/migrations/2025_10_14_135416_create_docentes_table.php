@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('docentes', function (Blueprint $table) {
             $table->id();
+            
+            // AGREGAR ESTAS LÍNEAS PARA DEFINIR LAS COLUMNAS FALTANTES
             $table->string('nombre');
+            $table->string('apellido'); // <-- ¡La columna que faltaba!
+            $table->string('email')->unique();
             $table->string('especialidad');
-            $table->string('dni')->unique();
+            
             $table->timestamps();
         });
     }

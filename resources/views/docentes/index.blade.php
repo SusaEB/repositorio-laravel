@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Listado de Docentes</h1>
-
+    <a href="{{ route('docentes.create') }}">➕ Agregar Docente</a>
     @if($docentes->count())
         <table border="1" cellpadding="5">
             <thead>

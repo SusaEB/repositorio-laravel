@@ -12,7 +12,11 @@ class DocenteController extends Controller
      */
     public function index()
     {
-        //
+            // Trae todos los docentes desde la base de datos
+    $docentes = \App\Models\Docente::all();
+
+    // Envía los datos a la vista
+    return view('docentes.index', compact('docentes'));
     }
 
     /**
@@ -26,10 +30,23 @@ class DocenteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
-        //
+    // Validar los datos
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'especialidad' => 'required|string|max:255',
+        'dni' => 'required|string|max:20',
+    ]);
+
+    // Crear el nuevo docente
+    \App\Models\Docente::create($request->all());
+
+    // Redirigir de nuevo al listado
+    return redirect()->route('docentes.index');
     }
+
 
     /**
      * Display the specified resource.
