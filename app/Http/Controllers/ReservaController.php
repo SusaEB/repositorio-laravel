@@ -2,64 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+// 👇 ¡IMPORTANTE! Importa los modelos que vas a usar
+use App\Models\Materia; 
+use App\Models\Horario;
 
 class ReservaController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        // 1. Buscamos todos los datos de la base de datos
+        $materias = Materia::all();
+        $horarios = Horario::all();
+
+        // 2. Pasamos esos datos a la vista
+        //    'reservas.index' buscará el archivo 'resources/views/reservas/index.blade.php'
+        return view('reservas.index', compact('materias', 'horarios'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    // ... aquí van los otros métodos (create, store, show, edit, update, destroy) ...
 }

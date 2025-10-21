@@ -13,11 +13,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Esto crea tu usuario de prueba (¡déjalo!)
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+        ]);
+
+        // 👇 AGREGA ESTO 👇
+        // Esto llama al sembrador de materias que creamos
+        $this->call([
+            MateriaSeeder::class,
         ]);
     }
 }
