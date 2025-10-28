@@ -1,23 +1,27 @@
 @extends('layouts.app')
 
+@section('title', 'Agregar Docente')
+
+@section('header', 'Agregar Nuevo Docente')
+
 @section('content')
-<div class="container">
-    <h1>Nuevo Docente</h1>
-    <form action="{{ route('docentes.store') }}" method="POST">
-        @csrf
-        <div class="mb-3">
-            <label>Nombre</label>
-            <input type="text" name="nombre" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label>Especialidad</label>
-            <input type="text" name="especialidad" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label>DNI</label>
-            <input type="text" name="dni" class="form-control">
-        </div>
-        <button class="btn btn-success">Guardar</button>
-    </form>
-</div>
+<form action="{{ route('docentes.store') }}" method="POST">
+    @csrf
+    <label>Nombre:</label><br>
+    <input type="text" name="nombre" required><br><br>
+
+    <label>Apellido:</label><br>
+    <input type="text" name="apellido" required><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <label>Especialidad:</label><br>
+    <input type="text" name="especialidad" required><br><br>
+
+    <button type="submit" class="btn btn-add">Guardar</button>
+</form>
+
+<br><br>
+<a href="{{ route('docentes.index') }}">← Volver al listado</a>
 @endsection

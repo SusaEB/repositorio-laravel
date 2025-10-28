@@ -1,37 +1,40 @@
 @extends('layouts.app')
 
-@section('content')
-    <div class="container">
-        <h1>Listado de Aulas</h1>
-        <a href="{{ route('aulas.create') }}" class="btn btn-primary">Nueva Aula</a>
+@section('title', 'Listado de Aulas')
+@section('header', 'Listado de Aulas')
 
-        <table class="table mt-3">
+@section('content')
+    <a href="{{ route('aulas.create') }}" class="btn btn-add">➕ Agregar Aula</a>
+
+    @if ($aulas->isEmpty())
+        <p>No hay aulas registradas.</p>
+    @else
+        <table>
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Capacidad</th>
+                    <th>Ubicación</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($aulas as $aula)
                     <tr>
-                        <td>{{ $aula->id }}</td>
                         <td>{{ $aula->nombre }}</td>
                         <td>{{ $aula->capacidad }}</td>
+                        <td>{{ $aula->ubicacion ?? 'Sin especificar' }}</td>
                         <td>
-                            <a href="{{ route('aulas.show', $aula) }}" class="btn btn-info">Ver</a>
-                            <a href="{{ route('aulas.edit', $aula) }}" class="btn btn-warning">Editar</a>
-                            <form action="{{ route('aulas.destroy', $aula) }}" method="POST" style="display:inline;">
+                            <a href="{{ route('aulas.edit', $aula) }}" class="btn btn-edit">Editar</a>
+                            <form action="{{ route('aulas.destroy', $aula) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar esta aula?')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                <button type="submit" class="btn btn-delete">Eliminar</button>
                             </form>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-    </div>
+    @endif
 @endsection

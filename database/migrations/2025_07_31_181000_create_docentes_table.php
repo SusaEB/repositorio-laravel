@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('docentes', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('apellido');         // <-- AGREGA ESTA LÍNEA
+            $table->string('email')->unique();  // <-- AGREGA ESTA LÍNEA (->unique() es buena idea)
             $table->string('especialidad');
-            $table->string('dni')->unique();
+            // $table->string('dni'); // <-- Borra o comenta esta línea, ya no la usas
             $table->timestamps();
         });
     }

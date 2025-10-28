@@ -1,3 +1,84 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Configuración general y reseteo */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #1A202C; /* Azul oscuro de fondo */
+    color: #F7FAFC; /* Texto blanco suave */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Contenedor principal del menú */
+.menu-container {
+    background-color: #2D3748; /* Gris oscuro para el contenedor */
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+
+/* Título principal "MENU" */
+.menu-container h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    color: #FFFFFF;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+/* Grilla para los botones */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Estilo de cada botón del menú */
+.menu-item {
+    background-color: #4A5568; /* Gris un poco más claro para los botones */
+    color: #F7FAFC;
+    text-decoration: none;
+    padding: 25px 15px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+}
+
+/* Iconos dentro de los botones */
+.menu-item i {
+    font-size: 2rem; /* Tamaño del icono */
+    color: #A0AEC0; /* Color grisáceo para el icono */
+    transition: color 0.3s ease;
+}
+
+/* Texto dentro de los botones */
+.menu-item span {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Efecto al pasar el mouse sobre el botón */
+.menu-item:hover {
+    transform: translateY(-8px); /* Eleva el botón ligeramente */
+    background-color: #38B2AC; /* Cambia al color de acento */
+}
+
+.menu-item:hover i {
+    color: #FFFFFF; /* El icono se vuelve blanco */
+}

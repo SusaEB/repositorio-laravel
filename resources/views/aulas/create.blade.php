@@ -1,22 +1,21 @@
 @extends('layouts.app')
 
+@section('title', 'Agregar Aula')
+@section('header', 'Agregar Aula')
+
 @section('content')
-    <div class="container">
-        <h1>Nueva Aula</h1>
+    <form action="{{ route('aulas.store') }}" method="POST">
+        @csrf
+        <label>Nombre:</label>
+        <input type="text" name="nombre" required><br><br>
 
-        <form action="{{ route('aulas.store') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre" class="form-control" required>
-            </div>
+        <label>Capacidad:</label>
+        <input type="number" name="capacidad" required><br><br>
 
-            <div class="form-group">
-                <label for="capacidad">Capacidad:</label>
-                <input type="number" name="capacidad" class="form-control" required>
-            </div>
+        <label>Ubicación (opcional):</label>
+        <input type="text" name="ubicacion"><br><br>
 
-            <button type="submit" class="btn btn-success mt-2">Guardar</button>
-        </form>
-    </div>
+        <button type="submit" class="btn btn-add">Guardar</button>
+        <a href="{{ route('aulas.index') }}" class="btn btn-edit">Volver</a>
+    </form>
 @endsection

@@ -1,23 +1,23 @@
 @extends('layouts.app')
 
+@section('title', 'Editar Aula')
+@section('header', 'Editar Aula')
+
 @section('content')
-    <div class="container">
-        <h1>Editar Aula</h1>
+    <form action="{{ route('aulas.update', $aula) }}" method="POST">
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('aulas.update', $aula) }}" method="POST">
-            @csrf
-            @method('PUT')
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre" class="form-control" value="{{ $aula->nombre }}" required>
-            </div>
+        <label>Nombre:</label>
+        <input type="text" name="nombre" value="{{ $aula->nombre }}" required><br><br>
 
-            <div class="form-group">
-                <label for="capacidad">Capacidad:</label>
-                <input type="number" name="capacidad" class="form-control" value="{{ $aula->capacidad }}" required>
-            </div>
+        <label>Capacidad:</label>
+        <input type="number" name="capacidad" value="{{ $aula->capacidad }}" required><br><br>
 
-            <button type="submit" class="btn btn-primary mt-2">Actualizar</button>
-        </form>
-    </div>
+        <label>Ubicación:</label>
+        <input type="text" name="ubicacion" value="{{ $aula->ubicacion }}"><br><br>
+
+        <button type="submit" class="btn btn-add">Actualizar</button>
+        <a href="{{ route('aulas.index') }}" class="btn btn-edit">Volver</a>
+    </form>
 @endsection
