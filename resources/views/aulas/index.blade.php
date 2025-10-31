@@ -4,37 +4,44 @@
 @section('header', 'Listado de Aulas')
 
 @section('content')
-    <a href="{{ route('aulas.create') }}" class="btn btn-add">➕ Agregar Aula</a>
 
-    @if ($aulas->isEmpty())
-        <p>No hay aulas registradas.</p>
-    @else
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Capacidad</th>
-                    <th>Ubicación</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($aulas as $aula)
-                    <tr>
-                        <td>{{ $aula->nombre }}</td>
-                        <td>{{ $aula->capacidad }}</td>
-                        <td>{{ $aula->ubicacion ?? 'Sin especificar' }}</td>
-                        <td>
-                            <a href="{{ route('aulas.edit', $aula) }}" class="btn btn-edit">Editar</a>
-                            <form action="{{ route('aulas.destroy', $aula) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar esta aula?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-delete">Eliminar</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @endif
+@if (session('success'))
+    <div style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+        {{ session('success') }}
+    </div>
+@endif
+
+<a href="{{ route('aulas.create') }}" class="btn btn-add">Crear Nueva Aula</a>
+<br><br>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Capacidad</th>
+            <th>Ubicación</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @forelse ($aulas as $aula)
+            <tr>
+                <td>{{ $aula->id }}</td>
+                <td>{{ $aula->nombre }}</td>
+                <td>{{ $aula->capacidad }}</td>
+                <td>{{ $aula->ubicacion ?? 'No especificada' }}</td>
+                <td>
+                    </td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="5">No hay aulas registradas todavía.</td>
+            </tr>
+        @endforelse
+    </tbody>
+</table>
+
+<br>
+<a href="{{ url('/') }}">← Volver al inicio</a>
 @endsection

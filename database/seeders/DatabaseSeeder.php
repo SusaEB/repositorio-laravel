@@ -14,7 +14,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
+        $this->call(MateriaSeeder::class); 
 
+        $this->call(HorarioSeeder::class); // <-- AGREGA ESTA LÍNEA
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',

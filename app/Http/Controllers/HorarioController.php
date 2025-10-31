@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Horario; // <-- ¡MUY IMPORTANTE AGREGAR ESTO!
 
 class HorarioController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Esta es la función que arregla la pantalla blanca
      */
     public function index()
     {
-        //
+        // 1. Busca todos los horarios de la base de datos
+        $horarios = Horario::all();
+
+        // 2. Los envía a la vista 'horarios.index'
+        return view('horarios.index', compact('horarios'));
     }
 
     /**

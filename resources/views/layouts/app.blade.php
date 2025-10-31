@@ -141,6 +141,7 @@
     <a href="{{ route('menu.principal') }}">🏠 Inicio</a>
     <a href="{{ route('docentes.index') }}">👩‍🏫 Docentes</a>
     <a href="{{ route('aulas.index') }}">🏫 Aulas</a>
+    <a href="{{ route('horarios.index') }}">Horarios</a>
 </nav>
 
 <div class="container">

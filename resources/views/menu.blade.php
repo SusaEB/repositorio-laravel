@@ -5,6 +5,7 @@
 @section('header', 'Panel de Control')
 
 @section('content')
+
 <div class="menu-grid">
     <a href="{{ route('docentes.index') }}" class="card">
         <span class="emoji">👩‍🏫</span>
@@ -18,16 +19,16 @@
         <p>Listado y administración de aulas.</p>
     </a>
 
-    <a href="#" class="card">
+    <a href="{{ route('materias.index') }}" class="card">
         <span class="emoji">📚</span>
         <h2>Materias</h2>
-        <p>Próximamente disponible.</p>
+        <p>Ver el listado de materias.</p>
     </a>
 
-    <a href="#" class="card">
+    <a href="{{ route('horarios.index') }}" class="card">
         <span class="emoji">🕐</span>
         <h2>Horarios</h2>
-        <p>Próximamente disponible.</p>
+        <p>Ver los horarios disponibles.</p>
     </a>
 </div>
 

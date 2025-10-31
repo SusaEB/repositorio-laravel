@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('aula_mueble', function (Blueprint $table) {
+        // ESTO ES LO IMPORTANTE
+        Schema::create('aulas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('aula_id')->constrained()->onDelete('cascade');
-            $table->foreignId('mueble_id')->constrained()->onDelete('cascade');
-            $table->integer('cantidad')->default(1);
+            $table->string('nombre'); // <-- La columna que falta
+            $table->integer('capacidad'); // <-- Esta también
+            $table->string('ubicacion')->nullable(); // <-- Y esta
             $table->timestamps();
         });
-
     }
 
     /**
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('aula_mueble');
+        Schema::dropIfExists('aulas');
     }
 };

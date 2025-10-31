@@ -1,21 +1,40 @@
 @extends('layouts.app')
 
-@section('title', 'Agregar Aula')
-@section('header', 'Agregar Aula')
+@section('title', 'Crear Aula')
+@section('header', 'Crear Nueva Aula')
 
 @section('content')
-    <form action="{{ route('aulas.store') }}" method="POST">
-        @csrf
-        <label>Nombre:</label>
-        <input type="text" name="nombre" required><br><br>
 
-        <label>Capacidad:</label>
-        <input type="number" name="capacidad" required><br><br>
+@if ($errors->any())
+    <div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+        <strong>¡Error!</strong> Hay problemas con los datos:
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
-        <label>Ubicación (opcional):</label>
-        <input type="text" name="ubicacion"><br><br>
+<form action="{{ route('aulas.store') }}" method="POST">
+    @csrf
 
-        <button type="submit" class="btn btn-add">Guardar</button>
-        <a href="{{ route('aulas.index') }}" class="btn btn-edit">Volver</a>
-    </form>
+    <label>Nombre del Aula:</label><br>
+    <input type="text" name="nombre" value="{{ old('nombre') }}" required><br>
+    @error('nombre') <small style="color:red">{{ $message }}</small> @enderror
+    <br><br>
+
+    <label>Capacidad (N° de personas):</label><br>
+    <input type="number" name="capacidad" value="{{ old('capacidad') }}" required><br>
+    @error('capacidad') <small style="color:red">{{ $message }}</small> @enderror
+    <br><br>
+
+    <label>Ubicación (Opcional):</label><br>
+    <input type="text" name="ubicacion" value="{{ old('ubicacion') }}"><br>
+    @error('ubicacion') <small style="color:red">{{ $message }}</small> @enderror
+    <br><br>
+
+    <button type="submit" class="btn btn-add">Guardar Aula</button>
+    <a href="{{ route('aulas.index') }}">Cancelar</a>
+</form>
 @endsection
