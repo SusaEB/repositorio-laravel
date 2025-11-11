@@ -11,12 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // ESTO ES LO IMPORTANTE
-        Schema::create('aulas', function (Blueprint $table) {
+        // ¡Esto debe crear la tabla 'aula_mueble', NO 'aulas'!
+        Schema::create('aula_mueble', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre'); // <-- La columna que falta
-            $table->integer('capacidad'); // <-- Esta también
-            $table->string('ubicacion')->nullable(); // <-- Y esta
+
+            // Llave foránea para la tabla 'aulas'
+            $table->foreignId('aula_id')
+                  ->constrained('aulas')
+                  ->onDelete('cascade'); // Si se borra un aula, se borra la relación
+
+            // Llave foránea para la tabla 'muebles'
+            $table->foreignId('mueble_id')
+                  ->constrained('muebles')
+                  ->onDelete('cascade'); // Si se borra un mueble, se borra la relación
+
+            // Opcional: puedes agregar una columna de 'cantidad'
+            // $table->integer('cantidad')->default(1);
+
             $table->timestamps();
         });
     }
@@ -26,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('aulas');
+        Schema::dropIfExists('aula_mueble');
     }
 };

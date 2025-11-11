@@ -4,62 +4,55 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Proyector; // <-- Modelo Proyector
+use App\Models\Aula;       // <-- ¡Necesitamos el modelo Aula!
 
 class ProyectorController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra la lista de proyectores
      */
     public function index()
     {
-        //
+        // Usamos "with('aula')" para traer el proyector Y los datos del aula
+        // en una sola consulta. Es mucho más eficiente.
+        $proyectores = Proyector::with('aula')->get();
+        
+        return view('proyectores.index', compact('proyectores'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un proyector
      */
     public function create()
     {
-        //
+        // ¡PASO CLAVE!
+        // Buscamos todas las aulas para poder listarlas en el <select>
+        $aulas = Aula::all();
+        
+        return view('proyectores.create', compact('aulas'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda el proyector nuevo en la base de datos
      */
     public function store(Request $request)
     {
-        //
-    }
+        // 1. Validación (¡actualizada!)
+        $request->validate([
+            'aula_id' => 'nullable|exists:aulas,id', // 'nullable' permite no asignarlo
+            'marca' => 'required|string|max:255',
+            'modelo' => 'required|string|max:255',
+            'numero_serie' => 'required|string|max:255|unique:proyectores',
+            'estado' => 'required|string|max:255',
+            'tiene_hdmi' => 'required|boolean',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        // 2. Creación
+        Proyector::create($request->all());
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // 3. Redirección
+        return redirect()->route('proyectores.index')
+                         ->with('success', '¡Proyector creado exitosamente!');
     }
 }

@@ -11,12 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Tu archivo se llama 'historial_usos'
         Schema::create('historial_usos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('aula_id')->constrained()->onDelete('cascade');
-            $table->foreignId('aire_acondicionado_id')->constrained()->onDelete('cascade');
-            $table->date('fecha');
-            $table->timestamps();
+
+            // Conecta con el AA específico que se usó
+            $table->foreignId('aire_acondicionado_id')
+                  ->constrained('aire_acondicionados')
+                  ->onDelete('cascade'); // Si se borra el AA, se borra su historial
+
+            // AQUI VA TU LÓGICA DE CONTROL
+            $table->integer('temperatura_seteada');
+            $table->string('estado_uso'); // 'encendido', 'apagado'
+            
+            // Tiempos de uso
+            $table->timestamp('encendido_at')->nullable();
+            $table->timestamp('apagado_at')->nullable();
+            
+            // $table->timestamps(); // (Opcional, ya tenemos los de arriba)
         });
     }
 
